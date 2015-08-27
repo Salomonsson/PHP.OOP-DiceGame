@@ -17,12 +17,12 @@ class CDiceHand extends CDiceImage  {
  */
 public function __construct() {
   #echo __METHOD__;
-  $this->kast     = isset($_POST['kast'])  ? true : false;
+  $this->kast       = isset($_POST['kast'])  ? true : false;
   $this->delete     = isset($_POST['delete'])  ? true : false;
-  $this->stop     = isset($_POST['stop'])  ? true : false;
-  $this->computer     = isset($_POST['computer'])  ? true : false;
-  $this->newGame     = isset($_POST['newGame'])  ? true : false;
-  $this->times = isset($_GET['roll']) && is_numeric($_GET['roll']) ? $_GET['roll'] : 1;
+  $this->stop       = isset($_POST['stop'])  ? true : false;
+  $this->computer   = isset($_POST['computer'])  ? true : false;
+  $this->newGame    = isset($_POST['newGame'])  ? true : false;
+  $this->times      = isset($_GET['roll']) && is_numeric($_GET['roll']) ? $_GET['roll'] : 1;
 }
 /**
  * Destructor
@@ -56,7 +56,7 @@ public function RenderStartGame(){
         return $this->computerGame();
     }
     if($this->newGame){
-          CDiceGameScore::unsetSumPlayer();
+       CDiceGameScore::unsetSumPlayer();
        return $view = 
                   " <form method='post'>
                     <input type='submit' name='kast'  value='Kasta' id='submit' /> 
@@ -67,7 +67,7 @@ public function RenderStartGame(){
     else{
        CDiceHistory::setPlayerHistoryZero();
        CDiceHistory::setComputerHistoryZero();
-         return $view = 
+       return $view = 
            " <form method='post'>
                 <input type='submit' name='kast'  value='Starta Spel..' id='submit' /> 
                 <br> <br>
@@ -77,11 +77,11 @@ public function RenderStartGame(){
 }
 
  public function renderScoreTable(){
-         return $view = 
-           "<h3>&nbsp;&nbsp;&nbsp;&nbsp; Scoretable <b>History</b>!</h3>" .
-           "<h3>&nbsp;&nbsp;&nbsp;&nbsp; Dator: " . CDiceHistory::getComputerScoreHistory() .
-             "&nbsp;&nbsp;&nbsp;&nbsp; Spelare: " . CDiceHistory::getPlayerScoreHistory() ."</h3>
-           ";
+      return $view = 
+        "<h3>&nbsp;&nbsp;&nbsp;&nbsp; Scoretable <b>History</b>!</h3>" .
+        "<h3>&nbsp;&nbsp;&nbsp;&nbsp; Dator: " . CDiceHistory::getComputerScoreHistory() .
+          "&nbsp;&nbsp;&nbsp;&nbsp; Spelare: " . CDiceHistory::getPlayerScoreHistory() ."</h3>
+        ";
     }
 
 public function playGame(){
@@ -93,21 +93,20 @@ public function playGame(){
       $antal     = "<h3>&nbsp;&nbsp;&nbsp;&nbsp; Alla slag: " .array_sum(CDiceGameScore::getSumPlayer()) . ".</h3>";
       $imageDice = $this->GetRollsAsImageObj(CDiceGameScore::getSumPlayer()); 
         
-        ##//If- poäng mer än 21, unset spelare poäng.
-        $stor = $this->goal(array_sum(CDiceGameScore::getSumPlayer()));
-        $view = $antal .
-                $antalKast .
-                $total .
-                $imageDice .
-                $stor .
-                  " <form method='post'>
-                    <input type='submit' name='kast'  value='Kasta' id='submit' /> 
-                    <input type='submit' name='stop'  value='Stanna' id='submit' /> 
-                    <br> <br>
-                    <input type='submit' name='delete'  value='Börja om' id='submit' /> 
-                </form>";
-
-  return $view;
+      ##//If- poäng mer än 21, unset spelare poäng.
+      $stor = $this->goal(array_sum(CDiceGameScore::getSumPlayer()));
+      $view = $antal .
+              $antalKast .
+              $total .
+              $imageDice .
+              $stor .
+                " <form method='post'>
+                  <input type='submit' name='kast'  value='Kasta' id='submit' /> 
+                  <input type='submit' name='stop'  value='Stanna' id='submit' /> 
+                  <br> <br>
+                  <input type='submit' name='delete'  value='Börja om' id='submit' /> 
+              </form>";
+      return $view;
 }
 
 
@@ -133,7 +132,6 @@ public function saveGame(){
             <br><br>
             <input type='submit' name='kast'    value='Fortsätt Kasta' id='submit' /> 
             </form>";
-
   return $view;
 }
 
@@ -141,10 +139,10 @@ public function saveGame(){
 
 public function checkWinner($score){
       if ($score >= array_sum(CDiceGameScore::getSumPlayer()) and  $score <= 21 ) {
-        $html ="<h2>&nbsp;&nbsp;&nbsp;&nbsp;Vinst: <b>DATOR</b> </h2>";
+        $html ="<h2>Vinst: <b>DATOR</b> </h2>";
         CDiceHistory::setComputerScoreHistory();
       }else{
-          $html = "<h2>&nbsp;&nbsp;&nbsp;&nbsp;Vinst: <b>SPELARE</b> <h2>";
+          $html = "<h2>Vinst: <b>SPELARE</b> <h2>";
         CDiceHistory::setPlayerScoreHistory();
       }
       return $html;
