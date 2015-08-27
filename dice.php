@@ -15,29 +15,28 @@ $user = new CUser($db);
 $diceGame = new CDiceHand();
 $user->userPermission();
 
-                      $html = "<h4>Välkommen <b>{$user->getName()}!</b><br>Tryck på Kasta för att spela!</h4><br><br>
-                      			<h4>Får du över 21, så förlorar du. </h4>";
-                    
-                      $oop['title'] = "Dicegame";
-                      $oop['left'] = <<<EOD
-                      <h1 class="header1"> Dicegame!</h1>
-                      <div class="testbox">
-                      	{$diceGame->RenderStartGame()}
-                      <br><br><br><br>
-                      </div>
-                      EOD;
-                    
-                      $oop['right'] = <<<EOD
-                      <h1 class="header1"> Dicegame!</h1>
-                      <div class="testbox">
-                      	$html
-                      	{$diceGame->renderScoreTable()}
-                      </div>
-                      EOD;
-                      
-                      $oop['under'] = <<<EOD
-                      <h1 class="header1"> Dicegame!</h1>
-                      EOD;
+$html = "<h4>Välkommen <b>{$user->getName()}!</b><br>Tryck på Kasta för att spela!</h4><br><br>
+			    <h4>Får du över 21, så förlorar du. </h4>";
+
+$oop['title'] = "Dicegame";
+$oop['left'] = <<<EOD
+  <h1 class="header1"> Dicegame!</h1>
+  <div class="testbox">
+  	{$diceGame->RenderStartGame()}
+  </div>
+EOD;
+
+$oop['right'] = <<<EOD
+<h1 class="header1"> Dicegame!</h1>
+<div class="testbox">
+	$html
+	{$diceGame->renderScoreTable()}
+</div>
+EOD;
+
+$oop['under'] = <<<EOD
+<h1 class="header1"> Dicegame!</h1>
+EOD;
                       
                       
 // Finally, leave it all to the rendering phase of Anax.
